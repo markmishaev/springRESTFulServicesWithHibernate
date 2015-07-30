@@ -6,6 +6,7 @@ userManagerModule.controller('userManagerController', function ($scope,$http) {
 	$scope.ShowUsersList=true;
 	$scope.AddUserToggle=false;
 	$scope.UpdateUserToggle=false;
+	$scope.DeleteUserToggle=false;
 	$scope.selection = [];
 	$http.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -18,15 +19,20 @@ userManagerModule.controller('userManagerController', function ($scope,$http) {
                 } else {
                     $scope.users = [];
                 }
-                for (var i = 0; i < $scope.users.length; i++) {
-                	$scope.selection.push($scope.users[i].id);
+                for (var i = 0; i < $scope.users.length; i++) 
+                {
+                	console.log($scope.users[i]._links.self.href);
+                	$scope.selection.push($scope.users[i]._links.self.href);
                 }
                 $scope.firstName="";
                 $scope.lastName="";
+                $scope.userId="";
                 $scope.isActive=false;
                 
+                
                 $scope.AddUserToggle=false;
-                $scope.UpdateUserToggle=false;;
+                $scope.UpdateUserToggle=false;
+                $scope.DeleteUserToggle=false;
                 $scope.ShowUsersList=true;
             });
     }
@@ -55,24 +61,60 @@ userManagerModule.controller('userManagerController', function ($scope,$http) {
 	
    //update user
    $scope.updateUser = function updateUser() {
-          $scope.selection.forEach(function(userUri) {
-              if (userUri != undefined) {
-            	  console.log(userUri);
-                  $http.patch(userUri, { 
-                	  firstName: $scope.firstName,
-                      lastName: $scope.lastName,
-                      isActive: $scope.isActive});
+          $scope.selection.forEach(function(userUri) 
+		  {
+              if (userUri != undefined) 
+              {
+            	  checkedUserId = userUri.substr(userUri.lastIndexOf('/') + 1);
+            	  //console.log(userUri);
+            	  //console.log("Checked User Id: " +  checkedUserId);
+            	  //console.log("Selected User Id: " + $scope.userId);
+            	  
+            	  if(checkedUserId == $scope.userId)
+            	  {
+            		  console.log("Found the updated user." + checkedUserId + " " + $scope.userId);
+	            	  
+            		  $http.patch(userUri, { 
+	                	  firstName: $scope.firstName,
+	                      lastName: $scope.lastName,
+	                      isActive: $scope.isActive});
+            	  }
               }
           });
           alert("User Updated");
           getAllUsers();
    };
    
+   //delete user
+   $scope.deleteUser = function deleteUser() {
+          $scope.selection.forEach(function(userUri) 
+		  {
+              if (userUri != undefined) 
+              {
+            	  checkedUserId = userUri.substr(userUri.lastIndexOf('/') + 1);
+            	  
+            	  if(checkedUserId == $scope.userId)
+            	  {
+            		  var idx = $scope.selection.indexOf(userUri);
+            		  $scope.selection.splice(idx, 1);
+            		  
+            		  console.log("Found the deleted user." + checkedUserId + " " + $scope.userId);
+	            	  
+            		  $http.delete(userUri);
+            	  }
+              }
+          });
+          alert("User Deleted");
+          getAllUsers();
+   };
+   
+   
    //ShowAddUserPanel
    $scope.showAddUserPanel = function showAddUserPanel() 
    {        
 		$scope.AddUserToggle=true;
 		$scope.UpdateUserToggle=false;
+		$scope.DeleteUserToggle=false;
 		$scope.ShowUsersList = false;
    };
    
@@ -81,6 +123,16 @@ userManagerModule.controller('userManagerController', function ($scope,$http) {
    {        
 
 		$scope.UpdateUserToggle=true;
+		$scope.AddUserToggle=false;
+		$scope.DeleteUserToggle=false;
+		$scope.ShowUsersList = false;
+   };
+   
+ //ShowDeleteUserPanel
+   $scope.showDeleteUserPanel = function showDeleteUserPanel() 
+   {        
+	   $scope.DeleteUserToggle=true;
+		$scope.UpdateUserToggle=false;
 		$scope.AddUserToggle=false;
 		$scope.ShowUsersList = false;
    };
@@ -91,6 +143,7 @@ userManagerModule.controller('userManagerController', function ($scope,$http) {
 
 	   	$scope.ShowUsersList = true;
 		$scope.UpdateUserToggle=false;
+		$scope.DeleteUserToggle=false;
 		$scope.AddUserToggle=false;
    };
 	

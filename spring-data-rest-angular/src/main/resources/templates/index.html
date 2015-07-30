@@ -20,6 +20,7 @@
 			<div class="panel-heading-controls">
 				<button ng-click="showAddUserPanel()" class="btn-panel">Add New User</button>				
 				<button ng-click="showUpdateUserPanel()" class="btn-panel">Update User</button>
+				<button ng-click="showDeleteUserPanel()" class="btn-panel">Delete User</button>
 			</div>
 		</div>		
 		<div class="panel-body">
@@ -82,7 +83,7 @@
 				<table class="add-user">
 					<tr>
 						<td>User ID:</td>
-						<td><input id="UpdateUserId" type="text" ng-model="id"/></td>
+						<td><input id="UpdateUserId" type="text" ng-model="userId"/></td>
 					</tr>
 					<tr>
 						<td>First Name:</td>
@@ -98,6 +99,28 @@
 					</tr>
 					<tr>
 						<td><br/><button ng-click="updateUser()" class="btn-panel-big">Update User</button></td>
+					</tr>
+				</table>								
+			</div>
+		</div>
+	</div>
+	<div id="delete-user-panel" class="fadein fadeout addpanel panel" ng-show="DeleteUserToggle">
+		<div class="panel-heading">
+			<i class="panel-title-icon fa fa-plus"></i>
+			<span class="panel-title">Delete User</span>
+			<div class="panel-heading-controls">
+				<button ng-click="showAllUsersPanel()" class="btn-panel">Show All Users</button>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="user" >
+				<table class="add-user">
+					<tr>
+						<td>User ID:</td>
+						<td><input id="UpdateUserId" type="text" ng-model="userId"/></td>
+					</tr>
+					<tr>
+						<td><br/><button ng-click="deleteUser()" class="btn-panel-big">Delete User</button></td>
 					</tr>
 				</table>								
 			</div>
