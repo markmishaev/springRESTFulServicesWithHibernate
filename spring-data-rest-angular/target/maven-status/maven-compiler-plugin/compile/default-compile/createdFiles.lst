@@ -1,4 +1,5 @@
-com\programmingfree\springservice\UserRepository.class
-com\programmingfree\springservice\UsersController.class
-com\programmingfree\springservice\User.class
-com\programmingfree\springservice\Application.class
+com\springdataservices\crud\tutorial\RepositoryConfig.class
+com\springdataservices\crud\tutorial\Application.class
+com\springdataservices\crud\tutorial\User.class
+com\springdataservices\crud\tutorial\UsersController.class
+com\springdataservices\crud\tutorial\UserRepository.class
