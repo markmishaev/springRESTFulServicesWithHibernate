@@ -13,12 +13,13 @@
 
 <div ng-controller="userManagerController">
 <h2 class="page-title">Users Manager using Spring Boot, Spring Data REST &amp; AngularJS</h2>
-	<div id="user-panel" class="fadein fadeout showpanel panel"  ng-show="toggle">	
+	<div id="user-panel" class="fadein fadeout showpanel panel"  ng-show="ShowUsersList">	
 		<div class="panel-heading">
 			<i class="panel-title-icon fa fa-tasks"></i>
 			<span class="panel-title">Users</span>
 			<div class="panel-heading-controls">
-				<button ng-click="toggle = !toggle" class="btn-panel">Add New User</button>
+				<button ng-click="showAddUserPanel()" class="btn-panel">Add New User</button>				
+				<button ng-click="showUpdateUserPanel()" class="btn-panel">Update User</button>
 			</div>
 		</div>		
 		<div class="panel-body">
@@ -38,12 +39,12 @@
 			</div>
 		</div>
 	</div>
-	<div id="add-user-panel" class="fadein fadeout addpanel panel" ng-hide="toggle">
+	<div id="add-user-panel" class="fadein fadeout addpanel panel" ng-show="AddUserToggle">
 		<div class="panel-heading">
 			<i class="panel-title-icon fa fa-plus"></i>
 			<span class="panel-title">Add User</span>
 			<div class="panel-heading-controls">
-				<button ng-click="toggle = !toggle" class="btn-panel">Show All Users</button>
+				<button ng-click="showAllUsersPanel()" class="btn-panel">Show All Users</button>
 			</div>
 		</div>
 		<div class="panel-body">
@@ -51,15 +52,15 @@
 				<table class="add-user">
 					<tr>
 						<td>First Name:</td>
-						<td><input type="text" ng-model="firstName"/></td>
+						<td><input id="AddUserFirstName" type="text" ng-model="firstName"/></td>
 					</tr>
 					<tr>
 						<td>Last Name:</td>
-						<td><input type="text" ng-model="lastName"/></td>
+						<td><input id="AddUserLastName" type="text" ng-model="lastName"/></td>
 					</tr>
 					<tr>
 						<td>Is Active?</td>
-						<td><input id="checkIsActive" type="checkbox" ng-model="isActive"/></td>
+						<td><input id="AddUsercheckIsActive" type="checkbox" ng-model="isActive"/></td>
 					</tr>
 					<tr>
 						<td><br/><button ng-click="addUser()" class="btn-panel-big">Add New User</button></td>
@@ -68,12 +69,12 @@
 			</div>
 		</div>
 	</div>
-	<div id="update-user-panel" class="fadein fadeout addpanel panel" ng-hide="toggle">
+	<div id="update-user-panel" class="fadein fadeout addpanel panel" ng-show="UpdateUserToggle">
 		<div class="panel-heading">
 			<i class="panel-title-icon fa fa-plus"></i>
 			<span class="panel-title">Update User</span>
 			<div class="panel-heading-controls">
-				<button ng-click="toggle = !toggle" class="btn-panel">Show All Users</button>
+				<button ng-click="showAllUsersPanel()" class="btn-panel">Show All Users</button>
 			</div>
 		</div>
 		<div class="panel-body">
@@ -81,19 +82,19 @@
 				<table class="add-user">
 					<tr>
 						<td>User ID:</td>
-						<td><input type="text" ng-model="id"/></td>
+						<td><input id="UpdateUserId" type="text" ng-model="id"/></td>
 					</tr>
 					<tr>
 						<td>First Name:</td>
-						<td><input type="text" ng-model="firstName"/></td>
+						<td><input id="UpdateUserFirstName" type="text" ng-model="firstName"/></td>
 					</tr>
 					<tr>
 						<td>Last Name:</td>
-						<td><input type="text" ng-model="lastName"/></td>
+						<td><input id="UpdateUserLastName" type="text" ng-model="lastName"/></td>
 					</tr>
 					<tr>
 						<td>Is Active?</td>
-						<td><input id="checkIsActive" type="checkbox" ng-model="isActive"/></td>
+						<td><input id="UpdateUsercheckIsActive" type="checkbox" ng-model="isActive"/></td>
 					</tr>
 					<tr>
 						<td><br/><button ng-click="updateUser()" class="btn-panel-big">Update User</button></td>
